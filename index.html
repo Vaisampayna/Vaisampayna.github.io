@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divyam Katiyar — Cryptography & MPC Researcher</title>
+    <meta name="description" content="Divyam Katiyar — MS Student at IIT Kharagpur. Research in Secure Multi-Party Computation, Privacy-Preserving Technologies, Oblivious Transfer, and Garbled Circuits.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ═══ Animated Background Particles ═══ -->
+    <canvas id="particles"></canvas>
+
+    <!-- ═══ Navigation ═══ -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">DK<span class="dot">.</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#research">Research</a>
+                <a href="#projects">Projects</a>
+                <a href="#publications">Work</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══ Hero Section ═══ -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-avatar-wrap">
+                <div class="avatar-glow"></div>
+                <img src="assets/avatar.png" alt="Divyam Katiyar" class="hero-avatar">
+            </div>
+            <div class="hero-text">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">Divyam Katiyar</h1>
+                <div class="hero-typing">
+                    <span class="typing-prefix">></span>
+                    <span id="typed"></span>
+                    <span class="cursor">|</span>
+                </div>
+                <p class="hero-desc">
+                    MS Student · Department of Computer Science & Engineering<br>
+                    <strong>Indian Institute of Technology, Kharagpur</strong>
+                </p>
+                <div class="hero-buttons">
+                    <a href="#research" class="btn btn-primary">
+                        <span class="btn-glow"></span>
+                        View Research
+                    </a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/Vaisampayna" target="_blank" title="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="mailto:katiyardivyam0@gmail.com" title="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ═══ About ═══ -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title" data-reveal>About Me</h2>
+            <div class="about-grid" data-reveal>
+                <div class="about-text">
+                    <p>
+                        I'm a Master's student at the <strong>Department of Computer Science & Engineering, 
+                        Indian Institute of Technology, Kharagpur</strong>, working under the guidance of 
+                        <strong>Prof. Satrajit Ghosh</strong>.
+                    </p>
+                    <p>
+                        My research focuses on <em>Secure Multi-Party Computation (MPC)</em> and its 
+                        applications in privacy-preserving technologies. I work on building efficient 
+                        cryptographic protocols that allow multiple parties to jointly compute functions 
+                        on their private data—without revealing anything beyond the final result.
+                    </p>
+                    <p>
+                        I'm passionate about bridging the gap between theoretical cryptography and 
+                        practical systems, from implementing OLE protocols over prime fields to building 
+                        end-to-end encrypted mobile applications.
+                    </p>
+                </div>
+                <div class="about-details">
+                    <div class="detail-card">
+                        <div class="detail-icon">🎓</div>
+                        <div>
+                            <h4>Education</h4>
+                            <p>MS, CSE · IIT Kharagpur</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">🔬</div>
+                        <div>
+                            <h4>Advisor</h4>
+                            <p>Prof. Satrajit Ghosh</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">📍</div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Kharagpur, West Bengal, India</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">🔑</div>
+                        <div>
+                            <h4>Focus</h4>
+                            <p>Secure MPC · Privacy · Cryptography</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Research ═══ -->
+    <section class="section section-alt" id="research">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Research Interests</h2>
+            <div class="research-grid" data-reveal>
+                <div class="research-card">
+                    <div class="research-card-icon">🔐</div>
+                    <h3>Secure MPC</h3>
+                    <p>Protocols enabling joint computation on private data with provable security guarantees under the semi-honest adversary model.</p>
+                    <div class="research-tags">
+                        <span>Two-Party Computation</span>
+                        <span>Arithmetic Circuits</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🔄</div>
+                    <h3>Oblivious Transfer</h3>
+                    <p>Efficient OT extension protocols (IKNP, NP-OT) as fundamental building blocks for garbled circuits and batch computation.</p>
+                    <div class="research-tags">
+                        <span>OT Extension</span>
+                        <span>1-out-of-2 OT</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">⚡</div>
+                    <h3>Garbled Circuits</h3>
+                    <p>Yao's garbled circuits with Free-XOR, point-and-permute, and half-gates optimizations for efficient Boolean circuit evaluation.</p>
+                    <div class="research-tags">
+                        <span>Free-XOR</span>
+                        <span>Half-Gates</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">📊</div>
+                    <h3>Oblivious Linear Evaluation</h3>
+                    <p>OLE and Batch OLE protocols over prime fields using noisy linear encodings, enabling efficient secure arithmetic multiplication.</p>
+                    <div class="research-tags">
+                        <span>Batch OLE</span>
+                        <span>Noisy Encoding</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🛡️</div>
+                    <h3>Privacy-Preserving Statistics</h3>
+                    <p>Practical systems for computing mean, variance, standard deviation, median, and mode over private datasets without data exposure.</p>
+                    <div class="research-tags">
+                        <span>Secret Sharing</span>
+                        <span>Applied Crypto</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-card-icon">🔗</div>
+                    <h3>Lattice-Based Cryptography</h3>
+                    <p>OLE constructions from Ring-LWE and LWE assumptions, providing post-quantum security for practical deployment.</p>
+                    <div class="research-tags">
+                        <span>RLWE</span>
+                        <span>Post-Quantum</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Projects ═══ -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Projects</h2>
+            <div class="projects-grid" data-reveal>
+
+                <div class="project-card featured">
+                    <div class="project-badge">Featured</div>
+                    <h3>Secure MPC Android App</h3>
+                    <p>
+                        A two-party secure computation Android application that enables two users to jointly 
+                        compute statistical functions (mean, variance, std dev, median, mode) over their 
+                        private data using WebSocket-based relay communication.
+                    </p>
+                    <div class="project-tech">
+                        <span>Kotlin</span>
+                        <span>Jetpack Compose</span>
+                        <span>WebSocket</span>
+                        <span>Node.js</span>
+                    </div>
+                    <a href="https://github.com/Vaisampayna/mpc-relay" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <h3>OLE from Garbled Circuits</h3>
+                    <p>
+                        Implementation of Oblivious Linear Function Evaluation using Yao's garbled circuits 
+                        with Free-XOR and point-and-permute optimizations. Benchmarked with NP-OT and IKNP-OTE 
+                        over LAN, achieving 10× speedup with OT extension.
+                    </p>
+                    <div class="project-tech">
+                        <span>C</span>
+                        <span>OpenSSL</span>
+                        <span>EMP-toolkit</span>
+                        <span>CBMC-GC-2</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Batch OLE from Noisy Encoding</h3>
+                    <p>
+                        Efficient batch OLE protocol from IPS09, using polynomial interpolation and noisy 
+                        linear encodings. Scaled to 2²³ OLEs over 64-bit prime fields with preprocessing-based 
+                        OT extension for minimal online overhead.
+                    </p>
+                    <div class="project-tech">
+                        <span>C/C++</span>
+                        <span>FLINT</span>
+                        <span>EMP-toolkit</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Privacy-Preserving Statistics Interface</h3>
+                    <p>
+                        Terminal-based MPC system supporting 5 statistical functions using three distinct 
+                        cryptographic paradigms: additive secret sharing, Yao's garbled circuits, and 
+                        semi-honest 2PC via EMP toolkit.
+                    </p>
+                    <div class="project-tech">
+                        <span>C/C++</span>
+                        <span>EMP-toolkit</span>
+                        <span>Networking</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Publications / Work ═══ -->
+    <section class="section section-alt" id="publications">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Research Work</h2>
+            <div class="publications-list" data-reveal>
+                <div class="pub-card">
+                    <div class="pub-year">2024–25</div>
+                    <div class="pub-content">
+                        <h4>Secure Multi-Party Computation and its Application in Privacy Preserving Technologies</h4>
+                        <p class="pub-authors">Divyam Katiyar, Jitendra Kulaste · Advisor: Prof. Satrajit Ghosh</p>
+                        <p class="pub-venue">MS Thesis Project, IIT Kharagpur · SRG/2023/002154</p>
+                        <div class="pub-tags">
+                            <span>OLE</span>
+                            <span>Garbled Circuits</span>
+                            <span>Batch OLE</span>
+                            <span>MPC Interface</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Tech Stack ═══ -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Tech Stack</h2>
+            <div class="skills-grid" data-reveal>
+                <div class="skill-group">
+                    <h4>Languages</h4>
+                    <div class="skill-pills">
+                        <span>C</span><span>C++</span><span>Kotlin</span><span>Python</span><span>JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h4>Cryptographic Tools</h4>
+                    <div class="skill-pills">
+                        <span>EMP-toolkit</span><span>OpenSSL</span><span>FLINT</span><span>CBMC-GC-2</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h4>Mobile & Web</h4>
+                    <div class="skill-pills">
+                        <span>Android</span><span>Jetpack Compose</span><span>Node.js</span><span>WebSockets</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h4>Tools & Platforms</h4>
+                    <div class="skill-pills">
+                        <span>Git</span><span>Linux</span><span>LaTeX</span><span>Docker</span><span>OP-TEE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Contact ═══ -->
+    <section class="section section-alt" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Get in Touch</h2>
+            <div class="contact-wrap" data-reveal>
+                <p class="contact-desc">
+                    Interested in collaborating on MPC, privacy-preserving technologies, or cryptographic protocol design? I'd love to hear from you.
+                </p>
+                <div class="contact-cards">
+                    <a href="mailto:katiyardivyam0@gmail.com" class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h4>Email</h4>
+                        <p>katiyardivyam0@gmail.com</p>
+                    </a>
+                    <a href="https://github.com/Vaisampayna" target="_blank" class="contact-card">
+                        <div class="contact-icon">💻</div>
+                        <h4>GitHub</h4>
+                        <p>@Vaisampayna</p>
+                    </a>
+                    <div class="contact-card">
+                        <div class="contact-icon">🏛️</div>
+                        <h4>Institute</h4>
+                        <p>IIT Kharagpur, WB 721302</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Divyam Katiyar · Built with ❤️</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
