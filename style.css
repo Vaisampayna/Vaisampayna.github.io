@@ -182,9 +182,9 @@ img {
     z-index: 1;
     padding: 100px 24px 60px;
     background:
-        radial-gradient(1250px 520px at 80% 0%, rgba(38, 198, 218, .10), transparent 62%),
-        radial-gradient(920px 480px at 10% 18%, rgba(124, 58, 237, .11), transparent 64%),
-        linear-gradient(180deg, rgba(5, 8, 16, .95) 0%, rgba(8, 13, 25, .80) 45%, rgba(5, 8, 16, .96) 100%);
+        radial-gradient(1300px 560px at 84% -4%, rgba(85, 182, 255, .12), transparent 60%),
+        radial-gradient(980px 520px at 8% 18%, rgba(131, 102, 255, .10), transparent 64%),
+        linear-gradient(180deg, rgba(5, 9, 17, .96) 0%, rgba(7, 14, 30, .84) 42%, rgba(4, 8, 16, .97) 100%);
 }
 
 .hero::before {
@@ -193,8 +193,8 @@ img {
     inset: 0;
     pointer-events: none;
     background:
-        radial-gradient(90% 60% at 50% 45%, transparent 30%, rgba(6, 10, 20, .22) 100%),
-        linear-gradient(180deg, rgba(6, 10, 20, .05), rgba(6, 10, 20, .25));
+        radial-gradient(92% 64% at 50% 46%, transparent 28%, rgba(6, 10, 20, .30) 100%),
+        linear-gradient(180deg, rgba(6, 10, 20, .06), rgba(6, 10, 20, .28));
     z-index: 0;
 }
 
@@ -203,8 +203,11 @@ img {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(120deg, rgba(255, 255, 255, .02), transparent 35%, transparent 70%, rgba(255, 255, 255, .015));
+    background:
+        linear-gradient(120deg, rgba(255, 255, 255, .02), transparent 35%, transparent 70%, rgba(255, 255, 255, .015)),
+        repeating-linear-gradient(0deg, rgba(181, 220, 255, .015) 0 1px, transparent 1px 3px);
     z-index: 0;
+    mix-blend-mode: screen;
 }
 
 .hero-content {
