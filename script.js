@@ -345,7 +345,36 @@ function initSecureEnclaveScene() {
             },
             undefined,
             () => {
-                // Fallback visuals remain active if model fails to load.
+                // Try embedded glTF placeholder model if GLB is missing.
+                loader.load(
+                    'assets/models/secure-enclave.gltf',
+                    (gltf) => {
+                        enclaveModel = gltf.scene;
+                        enclaveModel.scale.set(2.2, 2.2, 2.2);
+                        enclaveModel.position.set(0, -0.1, 0);
+                        enclaveModel.traverse((obj) => {
+                            if (!obj.isMesh) return;
+                            obj.castShadow = false;
+                            obj.receiveShadow = false;
+                            obj.material = new THREE.MeshPhysicalMaterial({
+                                color: 0xb8e9ff,
+                                emissive: 0x215eb7,
+                                emissiveIntensity: 0.22,
+                                transmission: 0.28,
+                                transparent: true,
+                                opacity: 0.92,
+                                roughness: 0.28,
+                                metalness: 0.04,
+                            });
+                        });
+                        modelGroup.add(enclaveModel);
+                        modelLoaded = true;
+                    },
+                    undefined,
+                    () => {
+                        // Fallback visuals remain active if model fails to load.
+                    }
+                );
             }
         );
     }
