@@ -71,12 +71,15 @@ img {
     padding: 0 24px;
 }
 
-/* ═══ Particles Canvas ═══ */
+/* ═══ Background Scene Canvas ═══ */
 #particles {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    opacity: .95;
+    transform: translate3d(var(--scene-shift-x, 0px), var(--scene-shift-y, 0px), 0);
+    will-change: transform;
 }
 
 /* ═══ Navigation ═══ */
@@ -178,8 +181,30 @@ img {
     position: relative;
     z-index: 1;
     padding: 100px 24px 60px;
-    background: linear-gradient(180deg, rgba(6, 10, 20, .82) 0%, rgba(6, 10, 20, .65) 40%, rgba(6, 10, 20, .85) 100%),
-        url('assets/bg-pisa.png') center/cover no-repeat fixed;
+    background:
+        radial-gradient(1250px 520px at 80% 0%, rgba(38, 198, 218, .10), transparent 62%),
+        radial-gradient(920px 480px at 10% 18%, rgba(124, 58, 237, .11), transparent 64%),
+        linear-gradient(180deg, rgba(5, 8, 16, .95) 0%, rgba(8, 13, 25, .80) 45%, rgba(5, 8, 16, .96) 100%);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(90% 60% at 50% 45%, transparent 30%, rgba(6, 10, 20, .22) 100%),
+        linear-gradient(180deg, rgba(6, 10, 20, .05), rgba(6, 10, 20, .25));
+    z-index: 0;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255, 255, 255, .02), transparent 35%, transparent 70%, rgba(255, 255, 255, .015));
+    z-index: 0;
 }
 
 .hero-content {
@@ -190,12 +215,16 @@ img {
     opacity: 0;
     transform: translateY(40px);
     animation: heroIn 1s var(--ease) .3s forwards;
+    position: relative;
+    z-index: 1;
+    transform: translate3d(var(--hero-shift-x, 0px), calc(40px + var(--hero-shift-y, 0px)), 0);
+    will-change: transform;
 }
 
 @keyframes heroIn {
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(var(--hero-shift-x, 0px), var(--hero-shift-y, 0px), 0);
     }
 }
 
@@ -946,5 +975,28 @@ img {
     .hero-avatar {
         width: 140px;
         height: 140px;
+    }
+}
+
+@media (max-width: 900px) {
+    #particles {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    #particles {
+        display: none;
     }
 }

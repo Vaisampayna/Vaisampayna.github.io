@@ -7,6 +7,7 @@
     <title>Divyam Katiyar — Cryptography & MPC Researcher</title>
     <meta name="description"
         content="Divyam Katiyar — MS Student at IIT Kharagpur. Research in Secure Multi-Party Computation, Privacy-Preserving Technologies, Oblivious Transfer, and Garbled Circuits.">
+    <meta name="theme-color" content="#060a14">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,8 +17,8 @@
 </head>
 
 <body>
-    <!-- ═══ Animated Background Particles ═══ -->
-    <canvas id="particles"></canvas>
+    <!-- ═══ Animated 3D Background ═══ -->
+    <canvas id="particles" aria-hidden="true"></canvas>
 
     <!-- ═══ Navigation ═══ -->
     <nav class="nav" id="nav">
@@ -40,7 +41,7 @@
         <div class="hero-content">
             <div class="hero-avatar-wrap">
                 <div class="avatar-glow"></div>
-                <img src="assets/avatar.png" alt="Divyam Katiyar" class="hero-avatar">
+                <img src="assets/avatar.png" alt="Divyam Katiyar" class="hero-avatar" width="180" height="180" decoding="async" fetchpriority="high">
             </div>
             <div class="hero-text">
                 <p class="hero-greeting">Hello, I'm</p>
@@ -353,7 +354,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>
