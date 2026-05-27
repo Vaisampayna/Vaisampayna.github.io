@@ -8,101 +8,132 @@
         content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; worker-src blob:; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <title>Divyam Katiyar — Cryptography & MPC Researcher</title>
+    <title>Divyam Katiyar — Cryptography &amp; MPC Researcher</title>
     <meta name="description"
         content="Divyam Katiyar — MS Student at IIT Kharagpur. Research in Secure Multi-Party Computation, Privacy-Preserving Technologies, Oblivious Transfer, and Garbled Circuits.">
-    <meta name="theme-color" content="#060a14">
+    <meta name="theme-color" content="#04060f">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,700&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- ═══ Animated 3D Background ═══ -->
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- Noise texture overlay -->
+    <div class="noise" aria-hidden="true"></div>
+
+    <!-- 3D Background Canvas -->
     <canvas id="particles" aria-hidden="true"></canvas>
 
     <!-- ═══ Navigation ═══ -->
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="nav-logo">DK<span class="dot">.</span></a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#research">Research</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+            <div class="nav-center">
+                <span class="nav-status"><span class="nav-dot"></span>Available for collab</span>
             </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#research">Research</a>
+                    <a href="#projects">Projects</a>
+                </div>
+                <a href="#contact" class="nav-cta">Let's Talk <span class="cta-dot">•</span></a>
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- ═══ Hero Section ═══ -->
+    <!-- ═══ Hero ═══ -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <div class="hero-avatar-wrap">
-                <!-- Hex security frame -->
-                <div class="hex-frame">
-                    <div class="hex-border-outer"></div>
-                    <div class="hex-border-inner"></div>
-                    <div class="hex-scan-ring"></div>
-                    <div class="hex-img-clip">
-                        <img src="assets/avatar.png" alt="Divyam Katiyar" class="hero-avatar" width="200" height="200" decoding="async" fetchpriority="high">
+        <!-- Grid lines -->
+        <div class="grid-line grid-line-v1" aria-hidden="true"></div>
+        <div class="grid-line grid-line-v2" aria-hidden="true"></div>
+        <div class="grid-cross gc-tl" aria-hidden="true"></div>
+        <div class="grid-cross gc-tr" aria-hidden="true"></div>
+        <div class="grid-cross gc-bl" aria-hidden="true"></div>
+
+        <div class="hero-inner">
+            <!-- Left: avatar column -->
+            <div class="hero-left">
+                <div class="hero-avatar-wrap">
+                    <div class="hex-frame">
+                        <div class="hex-border-outer"></div>
+                        <div class="hex-border-inner"></div>
+                        <div class="hex-scan-ring"></div>
+                        <div class="hex-img-clip">
+                            <img src="assets/avatar.png" alt="Divyam Katiyar" class="hero-avatar" width="220" height="220" decoding="async" fetchpriority="high">
+                        </div>
+                        <span class="hb hb-tl"></span>
+                        <span class="hb hb-tr"></span>
+                        <span class="hb hb-bl"></span>
+                        <span class="hb hb-br"></span>
+                        <div class="hex-status">
+                            <span class="hex-dot"></span>
+                            <span class="hex-label">IDENTITY VERIFIED</span>
+                        </div>
                     </div>
-                    <!-- Corner brackets -->
-                    <span class="hb hb-tl"></span>
-                    <span class="hb hb-tr"></span>
-                    <span class="hb hb-bl"></span>
-                    <span class="hb hb-br"></span>
-                    <!-- Status bar -->
-                    <div class="hex-status">
-                        <span class="hex-dot"></span>
-                        <span class="hex-label">VERIFIED</span>
+                    <!-- Meta tags below avatar -->
+                    <div class="avatar-meta">
+                        <span>IIT Kharagpur</span>
+                        <span class="meta-sep">•</span>
+                        <span>MS CSE</span>
+                        <span class="meta-sep">•</span>
+                        <span>2025</span>
                     </div>
                 </div>
             </div>
-            <div class="hero-text">
-                <p class="hero-greeting">Hello, I'm</p>
-                <h1 class="hero-name">Divyam Katiyar</h1>
-                <div class="hero-typing">
-                    <span class="typing-prefix">></span>
+
+            <!-- Right: text column -->
+            <div class="hero-right">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow-index">01</span>
+                    <span class="eyebrow-line"></span>
+                    <span class="eyebrow-label">CRYPTOGRAPHY &amp; MPC</span>
+                </div>
+                <h1 class="hero-name">
+                    <span class="name-line">Divyam</span>
+                    <span class="name-line name-line-accent">Katiyar</span>
+                </h1>
+                <div class="hero-typing-wrap">
+                    <span class="typing-prefix">&gt;_</span>
                     <span id="typed"></span>
-                    <span class="cursor">|</span>
+                    <span class="cursor-blink">|</span>
                 </div>
                 <p class="hero-desc">
-                    MS Student · Department of Computer Science & Engineering<br>
-                    <strong>Indian Institute of Technology, Kharagpur</strong>
+                    Building provably-secure cryptographic protocols that let
+                    multiple parties compute jointly — without revealing anything.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#research" class="btn btn-primary">
-                        <span class="btn-glow"></span>
+                <div class="hero-actions">
+                    <a href="#research" class="btn-pill btn-pill-primary">
                         View Research
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    <a href="#contact" class="btn-pill btn-pill-ghost">Get in Touch</a>
                 </div>
                 <div class="hero-socials">
-                    <a href="https://github.com/Vaisampayna" target="_blank" title="GitHub">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
+                    <a href="https://github.com/Vaisampayna" target="_blank" rel="noopener" class="social-pill" title="GitHub">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
                     </a>
-                    <a href="mailto:katiyardivyam0@gmail.com" title="Email">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
+                    <a href="mailto:katiyardivyam0@gmail.com" class="social-pill" title="Email">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        Email
                     </a>
                 </div>
             </div>
         </div>
+
         <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-dot"></div>
-            </div>
+            <div class="scroll-line"><div class="scroll-fill"></div></div>
             <span>Scroll</span>
         </div>
     </section>
@@ -110,49 +141,44 @@
     <!-- ═══ About ═══ -->
     <section class="section" id="about">
         <div class="container">
-            <h2 class="section-title" data-reveal>About Me</h2>
+            <div class="section-header">
+                <span class="section-index">02</span>
+                <h2 class="section-title" data-reveal>About Me</h2>
+            </div>
             <div class="about-grid" data-reveal>
                 <div class="about-text">
-                    <p>
-                        I'm a Master's student at the <strong>Department of Computer Science & Engineering,
-                            Indian Institute of Technology, Kharagpur</strong>.
-                    </p>
-                    <p>
-                        My research focuses on <em>Secure Multi-Party Computation (MPC)</em> and its
-                        applications in privacy-preserving technologies. I work on building efficient
-                        cryptographic protocols that allow multiple parties to jointly compute functions
-                        on their private data—without revealing anything beyond the final result.
-                    </p>
-                    <p>
-                        I'm passionate about bridging the gap between theoretical cryptography and
-                        practical systems, from implementing OLE protocols over prime fields to building
-                        end-to-end encrypted mobile applications.
-                    </p>
+                    <p>I'm a Master's student at the <strong>Department of Computer Science &amp; Engineering,
+                        Indian Institute of Technology, Kharagpur</strong>.</p>
+                    <p>My research focuses on <em>Secure Multi-Party Computation (MPC)</em> and its
+                        applications in privacy-preserving technologies. I build cryptographic protocols
+                        that allow multiple parties to jointly compute — without revealing anything beyond the result.</p>
+                    <p>I'm passionate about bridging theoretical cryptography and practical systems —
+                        from OLE protocols over prime fields to end-to-end encrypted mobile apps.</p>
                 </div>
                 <div class="about-details">
                     <div class="detail-card">
-                        <div class="detail-icon">🎓</div>
+                        <div class="detail-index">01</div>
                         <div>
                             <h4>Education</h4>
                             <p>MS, CSE · IIT Kharagpur</p>
                         </div>
                     </div>
                     <div class="detail-card">
-                        <div class="detail-icon">🔬</div>
+                        <div class="detail-index">02</div>
                         <div>
-                            <h4>Area</h4>
+                            <h4>Research Area</h4>
                             <p>Cryptographic Protocol Design</p>
                         </div>
                     </div>
                     <div class="detail-card">
-                        <div class="detail-icon">📍</div>
+                        <div class="detail-index">03</div>
                         <div>
                             <h4>Location</h4>
                             <p>Kharagpur, West Bengal, India</p>
                         </div>
                     </div>
                     <div class="detail-card">
-                        <div class="detail-icon">🔑</div>
+                        <div class="detail-index">04</div>
                         <div>
                             <h4>Focus</h4>
                             <p>Secure MPC · Privacy · Cryptography</p>
@@ -164,70 +190,86 @@
     </section>
 
     <!-- ═══ Research ═══ -->
-    <section class="section section-alt" id="research">
+    <section class="section section-dark" id="research">
         <div class="container">
-            <h2 class="section-title" data-reveal>Research Interests</h2>
-            <div class="research-grid" data-reveal>
-                <div class="research-card">
-                    <div class="research-card-icon">🔐</div>
-                    <h3>Secure MPC</h3>
-                    <p>Protocols enabling joint computation on private data with provable security guarantees under the
-                        semi-honest adversary model.</p>
+            <div class="section-header">
+                <span class="section-index">03</span>
+                <h2 class="section-title" data-reveal>Research Interests</h2>
+            </div>
+            <div class="research-list" data-reveal>
+
+                <div class="research-row">
+                    <div class="research-num">01</div>
+                    <div class="research-body">
+                        <h3>Secure MPC</h3>
+                        <p>Protocols enabling joint computation on private data with provable security under the semi-honest adversary model.</p>
+                    </div>
                     <div class="research-tags">
                         <span>Two-Party Computation</span>
                         <span>Arithmetic Circuits</span>
                     </div>
                 </div>
-                <div class="research-card">
-                    <div class="research-card-icon">🔄</div>
-                    <h3>Oblivious Transfer</h3>
-                    <p>Efficient OT extension protocols (IKNP, NP-OT) as fundamental building blocks for garbled
-                        circuits and batch computation.</p>
+
+                <div class="research-row">
+                    <div class="research-num">02</div>
+                    <div class="research-body">
+                        <h3>Oblivious Transfer</h3>
+                        <p>Efficient OT extension protocols (IKNP, NP-OT) as fundamental building blocks for garbled circuits.</p>
+                    </div>
                     <div class="research-tags">
                         <span>OT Extension</span>
                         <span>1-out-of-2 OT</span>
                     </div>
                 </div>
-                <div class="research-card">
-                    <div class="research-card-icon">⚡</div>
-                    <h3>Garbled Circuits</h3>
-                    <p>Yao's garbled circuits with Free-XOR, point-and-permute, and half-gates optimizations for
-                        efficient Boolean circuit evaluation.</p>
+
+                <div class="research-row">
+                    <div class="research-num">03</div>
+                    <div class="research-body">
+                        <h3>Garbled Circuits</h3>
+                        <p>Yao's garbled circuits with Free-XOR, point-and-permute, and half-gates optimizations.</p>
+                    </div>
                     <div class="research-tags">
                         <span>Free-XOR</span>
                         <span>Half-Gates</span>
                     </div>
                 </div>
-                <div class="research-card">
-                    <div class="research-card-icon">📊</div>
-                    <h3>Oblivious Linear Evaluation</h3>
-                    <p>OLE and Batch OLE protocols over prime fields using noisy linear encodings, enabling efficient
-                        secure arithmetic multiplication.</p>
+
+                <div class="research-row">
+                    <div class="research-num">04</div>
+                    <div class="research-body">
+                        <h3>Oblivious Linear Evaluation</h3>
+                        <p>OLE and Batch OLE protocols over prime fields using noisy linear encodings for secure arithmetic.</p>
+                    </div>
                     <div class="research-tags">
                         <span>Batch OLE</span>
                         <span>Noisy Encoding</span>
                     </div>
                 </div>
-                <div class="research-card">
-                    <div class="research-card-icon">🛡️</div>
-                    <h3>Privacy-Preserving Statistics</h3>
-                    <p>Practical systems for computing mean, variance, standard deviation, median, and mode over private
-                        datasets without data exposure.</p>
+
+                <div class="research-row">
+                    <div class="research-num">05</div>
+                    <div class="research-body">
+                        <h3>Privacy-Preserving Statistics</h3>
+                        <p>Practical systems for computing statistical functions over private datasets without exposure.</p>
+                    </div>
                     <div class="research-tags">
                         <span>Secret Sharing</span>
                         <span>Applied Crypto</span>
                     </div>
                 </div>
-                <div class="research-card">
-                    <div class="research-card-icon">🔗</div>
-                    <h3>Lattice-Based Cryptography</h3>
-                    <p>OLE constructions from Ring-LWE and LWE assumptions, providing post-quantum security for
-                        practical deployment.</p>
+
+                <div class="research-row">
+                    <div class="research-num">06</div>
+                    <div class="research-body">
+                        <h3>Lattice-Based Cryptography</h3>
+                        <p>OLE constructions from Ring-LWE and LWE assumptions for post-quantum security.</p>
+                    </div>
                     <div class="research-tags">
                         <span>RLWE</span>
                         <span>Post-Quantum</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -235,68 +277,60 @@
     <!-- ═══ Projects ═══ -->
     <section class="section" id="projects">
         <div class="container">
-            <h2 class="section-title" data-reveal>Projects</h2>
+            <div class="section-header">
+                <span class="section-index">04</span>
+                <h2 class="section-title" data-reveal>Projects</h2>
+            </div>
             <div class="projects-grid" data-reveal>
 
-                <div class="project-card featured">
-                    <div class="project-badge">Featured</div>
-                    <h3>Secure MPC Android App</h3>
-                    <p>
-                        A two-party secure computation Android application that enables two users to jointly
-                        compute statistical functions (mean, variance, std dev, median, mode) over their
-                        private data using WebSocket-based relay communication.
-                    </p>
-                    <div class="project-tech">
-                        <span>Kotlin</span>
-                        <span>Jetpack Compose</span>
-                        <span>WebSocket</span>
-                        <span>Node.js</span>
-                    </div>
-                    <a href="https://github.com/Vaisampayna/mpc-relay" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <div class="project-card">
-                    <h3>OLE from Garbled Circuits</h3>
-                    <p>
-                        Implementation of Oblivious Linear Function Evaluation using Yao's garbled circuits
-                        with Free-XOR and point-and-permute optimizations. Benchmarked with NP-OT and IKNP-OTE
-                        over LAN, achieving 10× speedup with OT extension.
-                    </p>
-                    <div class="project-tech">
-                        <span>C</span>
-                        <span>OpenSSL</span>
-                        <span>EMP-toolkit</span>
-                        <span>CBMC-GC-2</span>
+                <div class="project-card project-featured">
+                    <div class="project-card-inner">
+                        <div class="project-header">
+                            <span class="project-num">01</span>
+                            <span class="project-badge">Featured</span>
+                        </div>
+                        <h3>Secure MPC Android App</h3>
+                        <p>A two-party secure computation Android application enabling joint statistical computation (mean, variance, std dev, median, mode) over private data via WebSocket relay.</p>
+                        <div class="project-tech">
+                            <span>Kotlin</span><span>Jetpack Compose</span><span>WebSocket</span><span>Node.js</span>
+                        </div>
+                        <a href="https://github.com/Vaisampayna/mpc-relay" target="_blank" rel="noopener" class="project-link">
+                            View on GitHub
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>Batch OLE from Noisy Encoding</h3>
-                    <p>
-                        Efficient batch OLE protocol from IPS09, using polynomial interpolation and noisy
-                        linear encodings. Scaled to 2²³ OLEs over 64-bit prime fields with preprocessing-based
-                        OT extension for minimal online overhead.
-                    </p>
-                    <div class="project-tech">
-                        <span>C/C++</span>
-                        <span>FLINT</span>
-                        <span>EMP-toolkit</span>
+                    <div class="project-card-inner">
+                        <span class="project-num">02</span>
+                        <h3>OLE from Garbled Circuits</h3>
+                        <p>Oblivious Linear Function Evaluation using Yao's garbled circuits with Free-XOR and point-and-permute. 10× speedup with OT extension.</p>
+                        <div class="project-tech">
+                            <span>C</span><span>OpenSSL</span><span>EMP-toolkit</span><span>CBMC-GC-2</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>Privacy-Preserving Statistics Interface</h3>
-                    <p>
-                        Terminal-based MPC system supporting 5 statistical functions using three distinct
-                        cryptographic paradigms: additive secret sharing, Yao's garbled circuits, and
-                        semi-honest 2PC via EMP toolkit.
-                    </p>
-                    <div class="project-tech">
-                        <span>C/C++</span>
-                        <span>EMP-toolkit</span>
-                        <span>Networking</span>
+                    <div class="project-card-inner">
+                        <span class="project-num">03</span>
+                        <h3>Batch OLE from Noisy Encoding</h3>
+                        <p>Efficient batch OLE from IPS09 using polynomial interpolation. Scaled to 2²³ OLEs over 64-bit prime fields.</p>
+                        <div class="project-tech">
+                            <span>C/C++</span><span>FLINT</span><span>EMP-toolkit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-inner">
+                        <span class="project-num">04</span>
+                        <h3>Privacy-Preserving Statistics</h3>
+                        <p>Terminal-based MPC system supporting 5 statistical functions via additive secret sharing, garbled circuits, and semi-honest 2PC.</p>
+                        <div class="project-tech">
+                            <span>C/C++</span><span>EMP-toolkit</span><span>Networking</span>
+                        </div>
                     </div>
                 </div>
 
@@ -304,11 +338,13 @@
         </div>
     </section>
 
-
     <!-- ═══ Tech Stack ═══ -->
-    <section class="section" id="skills">
+    <section class="section section-dark" id="skills">
         <div class="container">
-            <h2 class="section-title" data-reveal>Tech Stack</h2>
+            <div class="section-header">
+                <span class="section-index">05</span>
+                <h2 class="section-title" data-reveal>Tech Stack</h2>
+            </div>
             <div class="skills-grid" data-reveal>
                 <div class="skill-group">
                     <h4>Languages</h4>
@@ -323,13 +359,13 @@
                     </div>
                 </div>
                 <div class="skill-group">
-                    <h4>Mobile & Web</h4>
+                    <h4>Mobile &amp; Web</h4>
                     <div class="skill-pills">
                         <span>Android</span><span>Jetpack Compose</span><span>Node.js</span><span>WebSockets</span>
                     </div>
                 </div>
                 <div class="skill-group">
-                    <h4>Tools & Platforms</h4>
+                    <h4>Tools &amp; Platforms</h4>
                     <div class="skill-pills">
                         <span>Git</span><span>Linux</span><span>LaTeX</span><span>Docker</span><span>OP-TEE</span>
                     </div>
@@ -339,29 +375,31 @@
     </section>
 
     <!-- ═══ Contact ═══ -->
-    <section class="section section-alt" id="contact">
+    <section class="section" id="contact">
         <div class="container">
-            <h2 class="section-title" data-reveal>Get in Touch</h2>
+            <div class="section-header">
+                <span class="section-index">06</span>
+                <h2 class="section-title" data-reveal>Get in Touch</h2>
+            </div>
             <div class="contact-wrap" data-reveal>
                 <p class="contact-desc">
-                    Interested in collaborating on MPC, privacy-preserving technologies, or cryptographic protocol
-                    design? I'd love to hear from you.
+                    Interested in collaborating on MPC, privacy-preserving technologies,
+                    or cryptographic protocol design? I'd love to hear from you.
                 </p>
                 <div class="contact-cards">
                     <a href="mailto:katiyardivyam0@gmail.com" class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <h4>Email</h4>
-                        <p>katiyardivyam0@gmail.com</p>
+                        <div class="contact-card-label">Email</div>
+                        <div class="contact-card-value">katiyardivyam0@gmail.com</div>
+                        <svg class="contact-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://github.com/Vaisampayna" target="_blank" class="contact-card">
-                        <div class="contact-icon">💻</div>
-                        <h4>GitHub</h4>
-                        <p>@Vaisampayna</p>
+                    <a href="https://github.com/Vaisampayna" target="_blank" rel="noopener" class="contact-card">
+                        <div class="contact-card-label">GitHub</div>
+                        <div class="contact-card-value">@Vaisampayna</div>
+                        <svg class="contact-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <div class="contact-card">
-                        <div class="contact-icon">🏛️</div>
-                        <h4>Institute</h4>
-                        <p>IIT Kharagpur, WB 721302</p>
+                        <div class="contact-card-label">Institute</div>
+                        <div class="contact-card-value">IIT Kharagpur, WB 721302</div>
                     </div>
                 </div>
             </div>
@@ -370,8 +408,11 @@
 
     <!-- ═══ Footer ═══ -->
     <footer class="footer">
-        <div class="container">
-            <p>© 2025 Divyam Katiyar · Built with ❤️</p>
+        <div class="container footer-inner">
+            <span>© 2025 Divyam Katiyar</span>
+            <span class="footer-sep">·</span>
+            <span>Cryptography &amp; MPC Researcher</span>
+            <span class="footer-right">Built with precision.</span>
         </div>
     </footer>
 

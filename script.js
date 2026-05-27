@@ -1,140 +1,155 @@
-/* ═══════════════════════════════════════════════════════════════════════
-   Secure Enclave Portfolio Interactions
-   ═══════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   Portfolio Interactions — Premium
+   ═══════════════════════════════════════════════════════ */
 
-const sections = document.querySelectorAll('.section, .hero');
-const navAnchors = document.querySelectorAll('.nav-links a');
+/* ── Set data-text on accent name span ── */
+document.querySelectorAll('.name-line-accent').forEach(el => {
+    el.setAttribute('data-text', el.textContent);
+});
 
+/* ── Typing animation ── */
 const phrases = [
     'Secure Multi-Party Computation',
     'Lattice Cryptography · RLWE / Ring-SIS',
-    'Privacy-Preserving Machine Learning',
-    'Trusted Execution Environments (OP-TEE)',
+    'Privacy-Preserving Protocols',
+    'Trusted Execution Environments',
     'Applied Cryptography Systems',
 ];
-
 const typedEl = document.getElementById('typed');
-let phraseIdx = 0;
-let charIdx = 0;
-let deleting = false;
-
+let phraseIdx = 0, charIdx = 0, deleting = false;
 function typeLoop() {
     if (!typedEl) return;
-    const current = phrases[phraseIdx];
-
+    const cur = phrases[phraseIdx];
     if (!deleting) {
-        typedEl.textContent = current.slice(0, ++charIdx);
-        if (charIdx === current.length) {
-            deleting = true;
-            window.setTimeout(typeLoop, 2200);
-            return;
-        }
+        typedEl.textContent = cur.slice(0, ++charIdx);
+        if (charIdx === cur.length) { deleting = true; window.setTimeout(typeLoop, 2000); return; }
     } else {
-        typedEl.textContent = current.slice(0, --charIdx);
-        if (charIdx === 0) {
-            deleting = false;
-            phraseIdx = (phraseIdx + 1) % phrases.length;
-        }
+        typedEl.textContent = cur.slice(0, --charIdx);
+        if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; }
     }
-
-    window.setTimeout(typeLoop, deleting ? 30 : 60);
+    window.setTimeout(typeLoop, deleting ? 28 : 55);
 }
-
 typeLoop();
 
+/* ── Custom cursor ── */
+const cursorEl    = document.getElementById('cursor');
+const cursorDot   = cursorEl?.querySelector('.cursor-dot');
+const cursorRing  = cursorEl?.querySelector('.cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+    if (cursorDot)  { cursorDot.style.transform  = `translate(${mx}px,${my}px) translate(-50%,-50%)`; }
+    if (cursorRing) {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        cursorRing.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    }
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.addEventListener('mouseleave', () => { if (cursorEl) cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { if (cursorEl) cursorEl.style.opacity = '1'; });
+
+/* ── Nav scroll ── */
 const nav = document.getElementById('nav');
-let scrollTicking = false;
-
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('.section, .hero');
+let ticking = false;
 function onScroll() {
-    if (scrollTicking) return;
-
-    scrollTicking = true;
-    window.requestAnimationFrame(() => {
-        if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
-
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+        if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
         let current = '';
-        sections.forEach((section) => {
-            const top = section.offsetTop - 200;
-            if (window.scrollY >= top) current = section.getAttribute('id');
+        sections.forEach(s => { if (window.scrollY >= s.offsetTop - 220) current = s.id; });
+        navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === `#${current}` ? '#00e5ff' : '';
         });
-
-        navAnchors.forEach((anchor) => {
-            anchor.style.color = anchor.getAttribute('href') === `#${current}` ? '#26c6da' : '';
-        });
-
-        scrollTicking = false;
+        ticking = false;
     });
 }
-
 window.addEventListener('scroll', onScroll, { passive: true });
 
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.querySelector('.nav-links');
-if (navToggle && navLinks) {
+/* ── Mobile nav toggle ── */
+const navToggle  = document.getElementById('navToggle');
+const navLinksEl = document.querySelector('.nav-links');
+if (navToggle && navLinksEl) {
     navToggle.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '100%';
-        navLinks.style.left = '0';
-        navLinks.style.right = '0';
-        navLinks.style.background = 'rgba(6,10,20,.97)';
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.padding = '20px 24px';
-        navLinks.style.gap = '16px';
-        navLinks.style.borderBottom = '1px solid rgba(38,198,218,.1)';
+        const open = navLinksEl.style.display === 'flex';
+        Object.assign(navLinksEl.style, {
+            display: open ? 'none' : 'flex',
+            position: 'absolute', top: '100%', left: '0', right: '0',
+            background: 'rgba(4,6,15,.97)', flexDirection: 'column',
+            padding: '20px 24px', gap: '16px',
+            borderBottom: '1px solid rgba(0,229,255,.1)',
+        });
     });
 }
 
-const reveals = document.querySelectorAll('[data-reveal]');
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.15 });
-reveals.forEach((el) => revealObserver.observe(el));
-
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (event) => {
-        const href = anchor.getAttribute('href');
-        const target = href ? document.querySelector(href) : null;
-
-        if (target) {
-            event.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            if (window.innerWidth <= 600 && navLinks) navLinks.style.display = 'none';
-        }
+/* ── Smooth anchor scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href') || '');
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
 });
 
+/* ── Scroll reveal ── */
+const reveals = document.querySelectorAll('[data-reveal]');
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => revealObs.observe(el));
+
+/* ── Research row hover expand ── */
+document.querySelectorAll('.research-row').forEach(row => {
+    row.addEventListener('mouseenter', () => { row.style.paddingLeft = '32px'; row.style.paddingRight = '32px'; row.style.margin = '0 -32px'; });
+    row.addEventListener('mouseleave', () => { row.style.paddingLeft = ''; row.style.paddingRight = ''; row.style.margin = ''; });
+});
+
+/* ── Hero entrance ── */
+function heroEntrance() {
+    const heroRight = document.querySelector('.hero-right');
+    const heroLeft  = document.querySelector('.hero-left');
+    if (heroRight) {
+        heroRight.style.opacity = '0';
+        heroRight.style.transform = 'translateY(32px)';
+        heroRight.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)';
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                heroRight.style.opacity = '1';
+                heroRight.style.transform = 'translateY(0)';
+            }, 200);
+        });
+    }
+    if (heroLeft) {
+        heroLeft.style.opacity = '0';
+        heroLeft.style.transform = 'translateY(32px)';
+        heroLeft.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1) .15s, transform 1s cubic-bezier(.16,1,.3,1) .15s';
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                heroLeft.style.opacity = '1';
+                heroLeft.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    }
+}
+
+/* ── Lenis smooth scroll ── */
 function initLenis() {
     if (!window.Lenis) return;
-    const lenis = new window.Lenis({
-        duration: 1.1,
-        smoothWheel: true,
-        syncTouch: false,
-    });
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
+    const lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
 }
 
-function initSecureEnclaveScene() {
+/* ── Three.js background ── */
+function initScene() {
     const canvas = document.getElementById('particles');
     if (!canvas || !window.THREE) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isSmall = window.matchMedia('(max-width: 900px)').matches;
-    const memory = Number(navigator.deviceMemory || 8);
-    if (reduceMotion || isSmall || memory <= 4) {
-        canvas.style.display = 'none';
-        return;
-    }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const small   = window.matchMedia('(max-width: 900px)').matches;
+    if (reduced || small) { canvas.style.display = 'none'; return; }
 
     const THREE = window.THREE;
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -143,430 +158,85 @@ function initSecureEnclaveScene() {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x060a14, 0.09);
+    scene.fog = new THREE.FogExp2(0x04060f, 0.085);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200);
     camera.position.set(0, 0.2, 14);
 
-    scene.add(new THREE.AmbientLight(0x8fcfff, 0.7));
-    const key = new THREE.DirectionalLight(0x6ff0ff, 0.9);
+    scene.add(new THREE.AmbientLight(0x8fcfff, 0.6));
+    const key = new THREE.DirectionalLight(0x6ff0ff, 0.8);
     key.position.set(6, 7, 8);
     scene.add(key);
 
-    const root = new THREE.Group();
-    scene.add(root);
-    const modelGroup = new THREE.Group();
-    root.add(modelGroup);
-    let enclaveModel = null;
-    let modelLoaded = false;
-
-    // 1) Lattice cloud that can align with secret-view angle
-    const latticeCount = 3600;
-    const latticeGeom = new THREE.BufferGeometry();
-    const latticePos = new Float32Array(latticeCount * 3);
-    const latticeTarget = new Float32Array(latticeCount * 3);
-    const latticeChaos = new Float32Array(latticeCount * 3);
-
-    for (let i = 0; i < latticeCount; i++) {
+    /* Particle field */
+    const COUNT = 3000;
+    const geom  = new THREE.BufferGeometry();
+    const pos   = new Float32Array(COUNT * 3);
+    const tgt   = new Float32Array(COUNT * 3);
+    const chaos = new Float32Array(COUNT * 3);
+    for (let i = 0; i < COUNT; i++) {
         const ix = i * 3;
-
-        // target: structured 3D lattice
-        const gx = (i % 30) - 15;
-        const gy = ((Math.floor(i / 30)) % 20) - 10;
-        const gz = Math.floor(i / 600) - 3;
-        latticeTarget[ix] = gx * 0.24;
-        latticeTarget[ix + 1] = gy * 0.24;
-        latticeTarget[ix + 2] = gz * 0.34;
-
-        // chaos: random noisy points
-        latticeChaos[ix] = (Math.random() - 0.5) * 10;
-        latticeChaos[ix + 1] = (Math.random() - 0.5) * 7;
-        latticeChaos[ix + 2] = (Math.random() - 0.5) * 6;
-
-        latticePos[ix] = latticeChaos[ix];
-        latticePos[ix + 1] = latticeChaos[ix + 1];
-        latticePos[ix + 2] = latticeChaos[ix + 2];
+        const gx = (i % 30) - 15, gy = (Math.floor(i / 30) % 20) - 10, gz = Math.floor(i / 600) - 3;
+        tgt[ix] = gx * 0.24; tgt[ix+1] = gy * 0.24; tgt[ix+2] = gz * 0.34;
+        chaos[ix] = (Math.random()-.5)*10; chaos[ix+1] = (Math.random()-.5)*7; chaos[ix+2] = (Math.random()-.5)*6;
+        pos[ix] = chaos[ix]; pos[ix+1] = chaos[ix+1]; pos[ix+2] = chaos[ix+2];
     }
+    geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const mat = new THREE.PointsMaterial({ color: 0x00e5ff, size: 0.038, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending, depthWrite: false });
+    const points = new THREE.Points(geom, mat);
+    scene.add(points);
 
-    latticeGeom.setAttribute('position', new THREE.BufferAttribute(latticePos, 3));
-    const latticeMat = new THREE.PointsMaterial({
-        color: 0x67e8f9,
-        size: 0.04,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-    });
-    const lattice = new THREE.Points(latticeGeom, latticeMat);
-    root.add(lattice);
-
-    // 2) TEE sphere + two execution zones
-    const teeSphere = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.65, 2),
-        new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: { value: 0 },
-                uA: { value: new THREE.Color('#d7f4ff') },
-                uB: { value: new THREE.Color('#4cd8ff') },
-            },
-            transparent: true,
-            side: THREE.DoubleSide,
-            vertexShader: `
-                uniform float uTime;
-                varying vec3 vN;
-                varying vec3 vP;
-                void main() {
-                    vec3 p = position + normal * sin(uTime * 1.2 + position.y * 5.0) * 0.03;
-                    vN = normal;
-                    vP = p;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-                }
-            `,
-            fragmentShader: `
-                uniform vec3 uA;
-                uniform vec3 uB;
-                uniform float uTime;
-                varying vec3 vN;
-                varying vec3 vP;
-                void main() {
-                    float fres = pow(1.0 - abs(dot(normalize(vN), vec3(0.0,0.0,1.0))), 2.2);
-                    float pulse = 0.5 + 0.5 * sin(uTime * 1.8 + vP.y * 4.0);
-                    vec3 col = mix(uA, uB, pulse * 0.7 + fres * 0.3);
-                    float a = 0.24 + fres * 0.35;
-                    gl_FragColor = vec4(col, a);
-                }
-            `,
-        })
-    );
-    teeSphere.visible = false;
-    root.add(teeSphere);
-
-    const zoneGeo = new THREE.BufferGeometry();
-    const zoneCount = 1200;
-    const zonePos = new Float32Array(zoneCount * 3);
-    for (let i = 0; i < zoneCount; i++) {
-        const ix = i * 3;
-        zonePos[ix] = (Math.random() - 0.5) * 10;
-        zonePos[ix + 1] = (Math.random() - 0.5) * 6;
-        zonePos[ix + 2] = (Math.random() - 0.5) * 3;
-    }
-    zoneGeo.setAttribute('position', new THREE.BufferAttribute(zonePos, 3));
-    const zoneMat = new THREE.PointsMaterial({ color: 0x65d8ff, size: 0.03, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false });
-    const zones = new THREE.Points(zoneGeo, zoneMat);
-    zones.visible = false;
-    root.add(zones);
-
-    // 3) MPC streams -> result particle
-    const mpcGroup = new THREE.Group();
-    mpcGroup.visible = false;
-    root.add(mpcGroup);
-
-    function createStream(color, yOffset) {
-        const pts = [];
-        for (let i = 0; i <= 80; i++) {
-            const t = i / 80;
-            pts.push(new THREE.Vector3(-3.3 + t * 5.8, yOffset + Math.sin(t * Math.PI * 2) * 0.18, Math.cos(t * 3.1) * 0.2));
-        }
-        const geo = new THREE.BufferGeometry().setFromPoints(pts);
-        const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.9 });
-        return new THREE.Line(geo, mat);
-    }
-
-    const s1 = createStream(0x22d3ee, 0.9);
-    const s2 = createStream(0x7c3aed, 0.0);
-    const s3 = createStream(0x16a34a, -0.9);
-    const core = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), new THREE.MeshBasicMaterial({ color: 0x95f3ff }));
-    core.position.set(2.6, 0, 0);
-    const result = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-    result.position.set(3.0, 0, 0);
-
-    mpcGroup.add(s1, s2, s3, core, result);
-
-    // 4) Timeline trace
-    const timelineGroup = new THREE.Group();
-    timelineGroup.visible = false;
-    root.add(timelineGroup);
-
-    const timelineNodes = [
-        new THREE.Vector3(-3.8, -1.2, 0),
-        new THREE.Vector3(-2.2, -0.6, 0),
-        new THREE.Vector3(-0.6, 0.0, 0),
-        new THREE.Vector3(1.2, 0.7, 0),
-        new THREE.Vector3(3.4, 1.5, 0),
-    ];
-
-    const traceGeom = new THREE.BufferGeometry().setFromPoints(timelineNodes);
-    const traceLine = new THREE.Line(traceGeom, new THREE.LineBasicMaterial({ color: 0x6de6ff, transparent: true, opacity: 0.7 }));
-    timelineGroup.add(traceLine);
-
-    const nodeMeshes = timelineNodes.map((p) => {
-        const n = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 10), new THREE.MeshBasicMaterial({ color: 0x274d6d }));
-        n.position.copy(p);
-        timelineGroup.add(n);
-        return n;
-    });
-
-    const tracer = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 12), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-    timelineGroup.add(tracer);
-
-    const sceneState = {
-        mode: 0,
-        align: 0,
-        timelineProgress: 0,
-    };
-
-    function loadEnclaveModel() {
-        if (!THREE.GLTFLoader) return;
-
-        const loader = new THREE.GLTFLoader();
-        if (THREE.DRACOLoader) {
-            const draco = new THREE.DRACOLoader();
-            draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');
-            loader.setDRACOLoader(draco);
-        }
-
-        loader.load(
-            'assets/models/secure-enclave.glb',
-            (gltf) => {
-                enclaveModel = gltf.scene;
-                enclaveModel.scale.set(1.8, 1.8, 1.8);
-                enclaveModel.position.set(0, -0.2, 0);
-                enclaveModel.traverse((obj) => {
-                    if (!obj.isMesh) return;
-                    obj.castShadow = false;
-                    obj.receiveShadow = false;
-                    if (obj.material) {
-                        obj.material.transparent = true;
-                        obj.material.opacity = Math.min(1, obj.material.opacity || 1);
-                    }
-                });
-                modelGroup.add(enclaveModel);
-                modelLoaded = true;
-            },
-            undefined,
-            () => {
-                // Try embedded glTF placeholder model if GLB is missing.
-                loader.load(
-                    'assets/models/secure-enclave.gltf',
-                    (gltf) => {
-                        enclaveModel = gltf.scene;
-                        enclaveModel.scale.set(2.2, 2.2, 2.2);
-                        enclaveModel.position.set(0, -0.1, 0);
-                        enclaveModel.traverse((obj) => {
-                            if (!obj.isMesh) return;
-                            obj.castShadow = false;
-                            obj.receiveShadow = false;
-                            obj.material = new THREE.MeshPhysicalMaterial({
-                                color: 0xb8e9ff,
-                                emissive: 0x215eb7,
-                                emissiveIntensity: 0.22,
-                                transmission: 0.28,
-                                transparent: true,
-                                opacity: 0.92,
-                                roughness: 0.28,
-                                metalness: 0.04,
-                            });
-                        });
-                        modelGroup.add(enclaveModel);
-                        modelLoaded = true;
-                    },
-                    undefined,
-                    () => {
-                        // Fallback visuals remain active if model fails to load.
-                    }
-                );
-            }
-        );
-    }
-
-    function setMode(mode) {
-        sceneState.mode = mode;
-        if (modelLoaded) {
-            lattice.visible = false;
-            teeSphere.visible = false;
-            zones.visible = false;
-            mpcGroup.visible = false;
-            timelineGroup.visible = false;
-            return;
-        }
-        lattice.visible = mode === 0;
-        teeSphere.visible = mode === 1;
-        zones.visible = mode === 1;
-        mpcGroup.visible = mode === 2;
-        timelineGroup.visible = mode === 3;
-    }
-
-    setMode(0);
-
-    function updateLattice(time) {
-        const pos = latticeGeom.attributes.position.array;
-        for (let i = 0; i < latticeCount; i++) {
-            const ix = i * 3;
-            const t = sceneState.align;
-
-            const nx = latticeChaos[ix] + Math.sin(time * 0.0009 + i * 0.05) * 0.08;
-            const ny = latticeChaos[ix + 1] + Math.cos(time * 0.0011 + i * 0.04) * 0.08;
-            const nz = latticeChaos[ix + 2] + Math.sin(time * 0.0012 + i * 0.03) * 0.08;
-
-            pos[ix] = nx * (1 - t) + latticeTarget[ix] * t;
-            pos[ix + 1] = ny * (1 - t) + latticeTarget[ix + 1] * t;
-            pos[ix + 2] = nz * (1 - t) + latticeTarget[ix + 2] * t;
-        }
-        latticeGeom.attributes.position.needsUpdate = true;
-        lattice.rotation.y += 0.0012;
-    }
-
-    function updateTEE(time) {
-        teeSphere.material.uniforms.uTime.value = time * 0.001;
-        teeSphere.rotation.y += 0.004;
-
-        const pos = zoneGeo.attributes.position.array;
-        for (let i = 0; i < zoneCount; i++) {
-            const ix = i * 3;
-            pos[ix + 2] = Math.sin(time * 0.001 + i * 0.07) * 0.6;
-        }
-        zoneGeo.attributes.position.needsUpdate = true;
-    }
-
-    function updateMPC(time) {
-        core.scale.setScalar(1 + Math.sin(time * 0.004) * 0.12);
-        result.position.x = 3.0 + Math.sin(time * 0.003) * 0.3;
-        result.material.opacity = 0.8 + Math.abs(Math.sin(time * 0.005)) * 0.2;
-    }
-
-    function updateTimeline() {
-        const p = Math.max(0, Math.min(0.999, sceneState.timelineProgress));
-        const scaled = p * (timelineNodes.length - 1);
-        const a = Math.floor(scaled);
-        const b = Math.min(a + 1, timelineNodes.length - 1);
-        const t = scaled - a;
-
-        tracer.position.lerpVectors(timelineNodes[a], timelineNodes[b], t);
-        nodeMeshes.forEach((n, idx) => {
-            n.material.color.setHex(idx <= a ? 0x9af5ff : 0x274d6d);
-        });
-    }
-
+    let align = 0;
     let rafId = null;
     function render(time) {
-        if (document.hidden) {
-            rafId = null;
-            return;
+        if (document.hidden) { rafId = null; return; }
+        const arr = geom.attributes.position.array;
+        for (let i = 0; i < COUNT; i++) {
+            const ix = i * 3;
+            const nx = chaos[ix]   + Math.sin(time * 0.0009 + i * 0.05) * 0.07;
+            const ny = chaos[ix+1] + Math.cos(time * 0.0011 + i * 0.04) * 0.07;
+            const nz = chaos[ix+2] + Math.sin(time * 0.0012 + i * 0.03) * 0.07;
+            arr[ix]   = nx*(1-align) + tgt[ix]*align;
+            arr[ix+1] = ny*(1-align) + tgt[ix+1]*align;
+            arr[ix+2] = nz*(1-align) + tgt[ix+2]*align;
         }
-
-        if (modelLoaded && enclaveModel) {
-            enclaveModel.rotation.y += 0.0035;
-            enclaveModel.rotation.x = Math.sin(time * 0.0005) * 0.08;
-            enclaveModel.position.y = -0.2 + Math.sin(time * 0.0012) * 0.08;
-
-            if (sceneState.mode === 0) enclaveModel.scale.setScalar(1.75 + sceneState.align * 0.2);
-            if (sceneState.mode === 1) enclaveModel.scale.setScalar(1.95);
-            if (sceneState.mode === 2) enclaveModel.scale.setScalar(1.85);
-            if (sceneState.mode === 3) enclaveModel.scale.setScalar(1.7 + sceneState.timelineProgress * 0.25);
-        } else {
-            if (sceneState.mode === 0) updateLattice(time);
-            if (sceneState.mode === 1) updateTEE(time);
-            if (sceneState.mode === 2) updateMPC(time);
-            if (sceneState.mode === 3) updateTimeline();
-        }
-
+        geom.attributes.position.needsUpdate = true;
+        points.rotation.y += 0.001;
         renderer.render(scene, camera);
         rafId = requestAnimationFrame(render);
     }
 
-    function onResize() {
+    window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
         renderer.setSize(window.innerWidth, window.innerHeight);
-    }
+    }, { passive: true });
 
-    window.addEventListener('resize', onResize, { passive: true });
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden && rafId !== null) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-        } else if (!document.hidden && rafId === null) {
-            rafId = requestAnimationFrame(render);
-        }
+        if (document.hidden && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        else if (!document.hidden && !rafId) { rafId = requestAnimationFrame(render); }
     });
 
+    /* GSAP scroll: align lattice on hero scroll */
     if (window.gsap && window.ScrollTrigger) {
         window.gsap.registerPlugin(window.ScrollTrigger);
-
-        window.gsap.timeline({
+        window.gsap.to({}, {
             scrollTrigger: {
-                trigger: '#hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1,
-                onUpdate: (self) => {
-                    setMode(0);
-                    sceneState.align = self.progress;
-                    camera.position.z = 14 - self.progress * 4.5;
-                    camera.position.x = self.progress * 0.8;
-                },
-            },
-        });
-
-        window.gsap.timeline({
-            scrollTrigger: {
-                trigger: '#research',
-                start: 'top center',
-                end: 'bottom top',
-                scrub: 1,
-                onUpdate: (self) => {
-                    setMode(1);
-                    camera.position.z = 9 - self.progress * 4.2;
-                    camera.position.y = 0.1 - self.progress * 0.3;
-                    zones.material.opacity = 0.35 + (1 - self.progress) * 0.35;
-                },
-            },
-        });
-
-        window.gsap.timeline({
-            scrollTrigger: {
-                trigger: '#projects',
-                start: 'top center',
-                end: 'bottom top',
-                scrub: 1,
-                onUpdate: (self) => {
-                    setMode(2);
-                    camera.position.z = 7.2 + self.progress * 0.8;
-                    mpcGroup.rotation.y = self.progress * 0.4;
-                },
-            },
-        });
-
-        window.gsap.timeline({
-            scrollTrigger: {
-                trigger: '#contact',
-                start: 'top center',
-                end: 'bottom top',
-                scrub: 1,
-                onUpdate: (self) => {
-                    setMode(3);
-                    sceneState.timelineProgress = self.progress;
-                    camera.position.z = 8.2;
-                },
-            },
+                trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1,
+                onUpdate: self => {
+                    align = self.progress;
+                    camera.position.z = 14 - self.progress * 5;
+                }
+            }
         });
     }
 
-    loadEnclaveModel();
     rafId = requestAnimationFrame(render);
 }
 
-// Wait for all deferred external scripts (Three.js, GSAP, Lenis) to fully load
-// before initializing — this is the key fix for Vercel's blank hero section.
+/* ── Boot ── */
 if (document.readyState === 'complete') {
-    initLenis();
-    initSecureEnclaveScene();
-    onScroll();
+    heroEntrance(); initLenis(); initScene(); onScroll();
 } else {
-    window.addEventListener('load', () => {
-        initLenis();
-        initSecureEnclaveScene();
-        onScroll();
-    });
+    window.addEventListener('load', () => { heroEntrance(); initLenis(); initScene(); onScroll(); });
 }
