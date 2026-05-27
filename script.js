@@ -557,6 +557,16 @@ function initSecureEnclaveScene() {
     rafId = requestAnimationFrame(render);
 }
 
-initLenis();
-initSecureEnclaveScene();
-onScroll();
+// Wait for all deferred external scripts (Three.js, GSAP, Lenis) to fully load
+// before initializing — this is the key fix for Vercel's blank hero section.
+if (document.readyState === 'complete') {
+    initLenis();
+    initSecureEnclaveScene();
+    onScroll();
+} else {
+    window.addEventListener('load', () => {
+        initLenis();
+        initSecureEnclaveScene();
+        onScroll();
+    });
+}
