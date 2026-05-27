@@ -2,10 +2,79 @@
    Portfolio Interactions — Premium
    ═══════════════════════════════════════════════════════ */
 
+/* ══════════════════════════════════════════════════
+   INTRO SEQUENCE
+   ══════════════════════════════════════════════════ */
+(function runIntro() {
+    const intro   = document.getElementById('intro');
+    const bar     = document.getElementById('introBar');
+    const pctEl   = document.getElementById('introPct');
+    const tagEls  = document.querySelectorAll('#introTags span');
+
+    if (!intro) { document.body.classList.add('intro-done'); return; }
+
+    // Skip if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        intro.classList.add('done');
+        document.body.classList.remove('intro-active');
+        document.body.classList.add('intro-done');
+        return;
+    }
+
+    document.body.classList.add('intro-active');
+
+    const DURATION  = 2200;  // ms for 0→100
+    const HOLD      = 280;   // pause at 100 before reveal
+    const REVEAL    = 1100;  // panel slide duration (matches CSS)
+
+    // Keyword tags cycle
+    const keywords = ['Cryptography', 'MPC', 'Privacy'];
+    let tagIdx = 0;
+    const tagInterval = setInterval(() => {
+        tagEls.forEach(t => t.classList.remove('active'));
+        tagIdx = (tagIdx + 1) % tagEls.length;
+        tagEls[tagIdx].classList.add('active');
+    }, DURATION / keywords.length);
+
+    // Eased counter (ease-in feel so it accelerates toward 100)
+    const start = performance.now();
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function tick(now) {
+        const raw = Math.min((now - start) / DURATION, 1);
+        const val = Math.round(easeOut(raw) * 100);
+
+        if (pctEl) pctEl.textContent = val;
+        if (bar)   bar.style.width   = val + '%';
+
+        if (raw < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            // Reached 100 — hold briefly then reveal
+            clearInterval(tagInterval);
+            tagEls.forEach(t => t.classList.remove('active'));
+            setTimeout(startReveal, HOLD);
+        }
+    }
+    requestAnimationFrame(tick);
+
+    function startReveal() {
+        intro.classList.add('reveal');
+
+        // After panels finish sliding, remove overlay & unlock body
+        setTimeout(() => {
+            intro.classList.add('done');
+            document.body.classList.remove('intro-active');
+            document.body.classList.add('intro-done');
+        }, REVEAL);
+    }
+})();
+
 /* ── Set data-text on accent name span ── */
 document.querySelectorAll('.name-line-accent').forEach(el => {
     el.setAttribute('data-text', el.textContent);
 });
+
 
 /* ── Typing animation ── */
 const phrases = [
@@ -107,33 +176,6 @@ document.querySelectorAll('.research-row').forEach(row => {
     row.addEventListener('mouseleave', () => { row.style.paddingLeft = ''; row.style.paddingRight = ''; row.style.margin = ''; });
 });
 
-/* ── Hero entrance ── */
-function heroEntrance() {
-    const heroRight = document.querySelector('.hero-right');
-    const heroLeft  = document.querySelector('.hero-left');
-    if (heroRight) {
-        heroRight.style.opacity = '0';
-        heroRight.style.transform = 'translateY(32px)';
-        heroRight.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)';
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                heroRight.style.opacity = '1';
-                heroRight.style.transform = 'translateY(0)';
-            }, 200);
-        });
-    }
-    if (heroLeft) {
-        heroLeft.style.opacity = '0';
-        heroLeft.style.transform = 'translateY(32px)';
-        heroLeft.style.transition = 'opacity 1s cubic-bezier(.16,1,.3,1) .15s, transform 1s cubic-bezier(.16,1,.3,1) .15s';
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                heroLeft.style.opacity = '1';
-                heroLeft.style.transform = 'translateY(0)';
-            }, 100);
-        });
-    }
-}
 
 /* ── Lenis smooth scroll ── */
 function initLenis() {
@@ -236,7 +278,7 @@ function initScene() {
 
 /* ── Boot ── */
 if (document.readyState === 'complete') {
-    heroEntrance(); initLenis(); initScene(); onScroll();
+    initLenis(); initScene(); onScroll();
 } else {
-    window.addEventListener('load', () => { heroEntrance(); initLenis(); initScene(); onScroll(); });
+    window.addEventListener('load', () => { initLenis(); initScene(); onScroll(); });
 }

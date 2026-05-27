@@ -25,8 +25,39 @@
         <div class="cursor-ring"></div>
     </div>
 
+    <!-- ═══ Intro Overlay ═══ -->
+    <div id="intro" aria-hidden="true">
+        <!-- Two split panels for the reveal -->
+        <div class="intro-panel intro-panel-top"></div>
+        <div class="intro-panel intro-panel-bot"></div>
+
+        <!-- Center content -->
+        <div class="intro-center">
+            <div class="intro-logo">DK<span>.</span></div>
+            <div class="intro-bar-wrap">
+                <div class="intro-bar" id="introBar"></div>
+            </div>
+            <div class="intro-counter-row">
+                <span class="intro-label">INITIALIZING SECURE CONTEXT</span>
+                <span class="intro-pct" id="introPct">0</span>
+            </div>
+            <div class="intro-tags" id="introTags">
+                <span>Cryptography</span>
+                <span>MPC</span>
+                <span>Privacy</span>
+            </div>
+        </div>
+
+        <!-- Corner decorators -->
+        <span class="ib ib-tl"></span>
+        <span class="ib ib-tr"></span>
+        <span class="ib ib-bl"></span>
+        <span class="ib ib-br"></span>
+    </div>
+
     <!-- Noise texture overlay -->
     <div class="noise" aria-hidden="true"></div>
+
 
     <!-- 3D Background Canvas -->
     <canvas id="particles" aria-hidden="true"></canvas>
